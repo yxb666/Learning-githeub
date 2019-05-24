@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="../web_back/js/bootstrap/css/bootstrap.min.css">
+    
 </head>
 
 <body>
@@ -28,9 +30,62 @@
                 <input type="submit" class="input_sub" value="登 录">
             </form>
         </div>
-
-    </div> 
-
+    </div>
+    <!-- bs警告框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">提示框！！</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="../web_back/js/jquery-1.12.4.min.js"></script>
+<script src="../web_back/js/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    //接口的基础地址为 https://autumnfish.cn/big
+    $(function () {
+        $(".input_sub").click(function (e) {
+            e.preventDefault();
+            var user_name = $(".input_txt").val();
+            var password = $(".input_pass").val();
+            if(user_name==""||password==""){
+                $('#myModal').modal();
+                        $(".modal-body").text("请输入账号密码哦！");
+                        return;
+            }
+            $.ajax({
+                url: "https://autumnfish.cn/big/admin/login",
+                type: "post",
+                data: {
+                    user_name: user_name,
+                    password: password
+                },
+                success: function (backData) {
+                    console.log(backData);
+                    if (backData.code == 200) {
+                        //跳转首页
+                        window.location.href = "./index.html";
+                    } else if (backData.code == 400) {
+                        $('#myModal').modal();
+                        $(".modal-body").text("登录失败，请检查账号或密码重新尝试哦！");
+                    }
+
+                }
+            })
+        })
+    })
+</script>
 
 </html>
