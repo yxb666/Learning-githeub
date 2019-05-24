@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -51,7 +52,25 @@
     <div class="main" id="main_body">
         <iframe src="main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0" scrolling="auto"></iframe>
     </div>
-
+    <!--警告框-->>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">提示框！！</h4>
+                    </div>
+                    <div class="modal-body">
+                        老铁你想好要退出了吗!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary btn-yes">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     <script>
@@ -106,3 +125,22 @@
 
 </body>
 </html>
+<script>
+    //登出
+    $(function () {
+        $(".icon-tuichu").parent().click(function () {
+            $("#myModal").modal();
+        })
+        $(".btn-yes").click(function () {
+            $.ajax({
+                        url:"https://autumnfish.cn/big/admin/logout",
+                        type:"post",
+                        success: function (backData) {
+                            if(backData.code == 200){
+                                window.location.href="./login.html";
+                            }
+                        }
+                    })
+        })
+    })
+</script>
