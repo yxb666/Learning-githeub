@@ -24,19 +24,19 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">用户名称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="李思思">
+                        <input type="text" class="form-control ssu" id="inputEmail5" value="李思思">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">昵称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="思思">
+                        <input type="text" class="form-control" id="inputEmail2" value="思思">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="inputEmail3" value="lisisi@126.com">
+                        <input type="text" class="form-control" id="inputEmail1" value="lisisi@126.com">
                     </div>
                 </div>
                 
@@ -58,13 +58,56 @@
     
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">修改</button>
+                        <button type="submit" class="btn btn-success btn-xiugai">修改</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+<script>
+    $(function () {
+        //用户信息
+        $.ajax({
+                url: "https://autumnfish.cn/big/admin/userinfo_get",
+                type: "get",
+                success:function(backData){
+                    console.log(backData);
+                    $("#inputEmail5").val(backData.data.username);
+                    $("#inputEmail2").val(backData.data.nickname);
+                    $("#inputEmail3").val(backData.data.password);
+                    $("#inputEmail1").val(backData.data.email);
+                    $(".user_pic").attr("src",backData.data.user_pic);
 
+                }
+            })
+            //修改用户信息  请接口的基础地址为 https://autumnfish.cn/big/admin/userinfo_edit
+            // $(".btn-xiugai").click(function (e) {
+            //     e.preventDefault();
+            //     var username= $("#inputEmail5").val();
+            //    var nickname= $("#inputEmail2").val();
+            //   var password= $("#inputEmail3").val();
+            //    var email= $("#inputEmail1").val();
+            //     var user_pic= $(".user_pic").attr("src");
+                    
+            //         $.ajax({
+            //             url:"https://autumnfish.cn/big/admin/userinfo_edit",
+            //             type:"post",
+            //             // data:{
+            //                  // username:username,
+            //                  // nickname:nickname,
+            //                  // email:email,
+            //                  // user_pic:user_pic,
+            //                  // password:password
+            //             // },
+            //             data:$(".article_form").serialize(),
+            //             success:function(backData){
+            //                  console.log(backData);
+                             
+            //             }
+            //         })
+            // })
+    })
+</script>
 </body>
 
 </html>

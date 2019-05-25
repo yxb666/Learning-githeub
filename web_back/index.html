@@ -142,8 +142,10 @@
             url: "https://autumnfish.cn/big/admin/getuser",
             type: "get",
             success: function (backData) {
+                console.log(backData);
+                
                 $(".user_info").children("img").attr("src", backData.data.user_pic);
-                $(".user_info").children("span").text("欢迎 " + backData.data.nick_name);
+                $(".user_info").children("span").text("欢迎 " + backData.data.nickname);
                 $(".user_center_link img").attr("src", backData.data.user_pic);
             }
 
@@ -164,15 +166,6 @@
             })
         })
         //用户信息修改
-        $(".user_center_link a").click(function () {
-            $.ajax({
-                url: "https://autumnfish.cn/big/admin/userinfo_get",
-                type: "get",
-                success:function(backData){
-                    console.log(backData);
-                    
-                }
-            })
-        })
+      
     })
 </script>
