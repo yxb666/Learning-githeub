@@ -346,7 +346,7 @@
 
         //各类型文章数量统计
         $.ajax({
-            url: "https://autumnfish.cn/big/admin/month_article_count",
+            url: "https://autumnfish.cn/big32/admin/month_article_count",
             type: "get",
             success: function (backData) {
                 console.log(backData);
@@ -355,11 +355,9 @@
                 var jsins1 = jsons.replace(/day_count/g, "count");
                 var jsins2 = jsins1.replace(/day/g, "date");
                 jsonss = JSON.parse(jsins2);
-                console.log(jsonss);
-                
                  aList_all = jsonss.data;
                  sss();
-
+                
             }
         })
 

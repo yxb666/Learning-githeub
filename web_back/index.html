@@ -139,7 +139,7 @@
     $(function () {
         //页面渲染用户信息
         $.ajax({
-            url: "https://autumnfish.cn/big/admin/getuser",
+            url: "https://autumnfish.cn/big32/admin/getuser",
             type: "get",
             success: function (backData) {
                 console.log(backData);
@@ -156,7 +156,7 @@
         })
         $(".btn-yes").click(function () {
             $.ajax({
-                url: "https://autumnfish.cn/big/admin/logout",
+                url: "https://autumnfish.cn/big32/admin/logout",
                 type: "post",
                 success: function (backData) {
                     if (backData.code == 200) {
