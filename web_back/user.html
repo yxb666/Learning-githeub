@@ -70,7 +70,7 @@
         $(function () {
             //用户信息
             $.ajax({
-                url: "https://autumnfish.cn/big32/admin/userinfo_get",
+                url: "http://localhost:8000/admin/userinfo_get",
                 type: "get",
                 success: function (backData) {
                     console.log(backData);
@@ -94,14 +94,15 @@
             $(".btn-xiugai").click(function (e) {
                 e.preventDefault();
                 var fromData = new FormData($("form")[0]);
+                console.log(fromData);
+                
                 $.ajax({
-                    url: "https://autumnfish.cn/big32/admin/userinfo_edit",
+                    url: "http://localhost:8000/admin/userinfo_edit",
                     type: "post",
                     data: fromData,
                     contentType: false,
                     processData: false,
                     success: function (backData) {
-                        console.log(backData);
                         if (backData.code == 200) {
                             showToast({
                                 title: "成功了哟！",

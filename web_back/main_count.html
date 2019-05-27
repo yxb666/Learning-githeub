@@ -344,12 +344,17 @@
         oColumn.setOption(oColumnopt);
 
 
+        
+        
+
+    </script>
+<script>
+    $(function () {
         //各类型文章数量统计
         $.ajax({
-            url: "https://autumnfish.cn/big32/admin/month_article_count",
+            url: "http://localhost:8000/admin/month_article_count",
             type: "get",
             success: function (backData) {
-                console.log(backData);
                 // 转为字符串
                 var jsons = JSON.stringify(backData);
                 var jsins1 = jsons.replace(/day_count/g, "count");
@@ -357,12 +362,12 @@
                 jsonss = JSON.parse(jsins2);
                  aList_all = jsonss.data;
                  sss();
-                
             }
         })
 
-    </script>
+    })
 
+</script>
 
 </body>
 

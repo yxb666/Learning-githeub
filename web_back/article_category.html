@@ -159,10 +159,10 @@
 
         function replace() {
             $.ajax({
-            url:"https://autumnfish.cn/big32/admin/category_search",
+            url:"http://localhost:8000/admin/category_search",
             type:"get",
             success:function(backData){
-                   
+                console.log(backData);
                     var html = template("strings",backData);
                     $("tbody").html(html);
             }
@@ -175,17 +175,22 @@
             var name = $("#recipient-name").val();
             var slug = $("#recipient-slug").val();
                 $.ajax({
-                    url:"https://autumnfish.cn/big32/admin/category_add",
+                    url:"http://localhost:8000/admin/category_add",
                     type:"post",
                     data:{
                         name:name,
                         slug:slug
                     },
                     success:function(backData){
+                       
                         replace();
                     }
                     
                 })
+        })
+        //删除文章类别
+        $(".btn-xs").on("click",function () {
+                
         })
     })
 </script>
