@@ -29,11 +29,12 @@
 
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
-                            <option  value="">所有状态</option>
+                            <option value="">所有状态</option>
                             <option value="草稿">草稿</option>
                             <option value="已发布">已发布</option>
                         </select>
                         <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
+                        <!-- <input type="text" value="{{totalPage}}" id="s_sse" > -->
                     </form>
                 </div>
                 <div class="col-xs-6">
@@ -295,11 +296,13 @@
                 </td>
             </tr>
         {{/each}}
-    
+        
     </script>
     <script>
         $(function () {
             var Page = 1;
+            //声明一个总页数
+            var TotalPage = 11;
             //获取文章分类
             $.ajax({
                 url: "http://localhost:8000/admin/category_search",
@@ -310,59 +313,72 @@
             })
             // 文章搜索
             search();
-            function  search() {
+            function search() {
                 $.ajax({
-                url: "http://localhost:8000/admin/search",
-                type:"get",
-                data:{
-                    //显示第几页
-                    page : Page,
-                    perpage: 6,
-                    type:$("#selCategory").val(),
-                    state:$("#selStatus").val()
-                },
-                success: function (backData) {
-                    console.log(backData);
-                    var html = template("iframe",backData);
+                    url: "http://localhost:8000/admin/search",
+                    type: "get",
+                    data: {
+                        //显示第几页
+                        page: Page,
+                        perpage: 6,
+                        type: $("#selCategory").val(),
+                        state: $("#selStatus").val()
+                    },
+                    success: function (backData) {
+                        console.log(backData);
+                        var html = template("iframe", backData);
                         $("tbody").html(html);
-                    //文章列表显示
-                }
-            })
-            }
-            var num =  $("#selCategory").val("");
-            // 页码插件导入的 
-            $('.pagination-sm').twbsPagination({
-                totalPages:35,
-                visiblePages: 7,
-                totalPagesVariable:"{{num}}",
-                prev:"上一页",
-                next:"下一页",
-                last:"最后面",
-                first:"最前面",
-                onPageClick: function (event, page) {
-                        Page   = page; 
-                        search();
-                    
-                }
-            });
-            //筛选
-                $("#btnSearch").click(function (e) {
-                    e.preventDefault();
-                    search();
-                })
-            //删除
-                window.deleteTr = function (id) {
-                    $.ajax({
-                        url:"http://localhost:8000/admin/article_delete",
-                        data:{
-                            id:id
-                        },
-                        success:function(vackData){
-                            console.log(vackData);
-                            search();
+                        //插件内容
+                        var totalPages = backData.totalPage;
+                        var currentPage = $pagination.twbsPagination('getCurrentPage');
+                        if(TotalPage !=totalPages){
+                            TotalPage  =totalPages;
+                        $pagination.twbsPagination('destroy');
+                        $pagination.twbsPagination($.extend({}, defaultOpts, {
+                            startPage: currentPage,
+                            totalPages: totalPages
+                         }))
                         }
-                    })
+                      
+                        
+                    }
+                })
+            }
+
+
+            // 页码插件导入的 
+            var $pagination = $('.pagination-sm');
+            var defaultOpts = {
+                totalPages: 25,
+                visiblePages: 7,
+                prev: "上一页",
+                next: "下一页",
+                last: "最后面",
+                first: "最前面",
+                onPageClick: function (event, page) {
+                    Page = page;
+                    search();
                 }
+            };
+            $pagination.twbsPagination(defaultOpts);
+            //筛选
+            $("#btnSearch").click(function (e) {
+                e.preventDefault();
+                search();
+            })
+            //删除
+            window.deleteTr = function (id) {
+                $.ajax({
+                    url: "http://localhost:8000/admin/article_delete",
+                    data: {
+                        id: id
+                    },
+                    success: function (vackData) {
+                        console.log(vackData);
+                        search();
+                    }
+                })
+            }
 
         })
     </script>
