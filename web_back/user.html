@@ -94,8 +94,6 @@
             $(".btn-xiugai").click(function (e) {
                 e.preventDefault();
                 var fromData = new FormData($("form")[0]);
-                console.log(fromData);
-                
                 $.ajax({
                     url: "http://localhost:8000/admin/userinfo_edit",
                     type: "post",
